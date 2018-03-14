@@ -15,7 +15,7 @@ public class BankAccountDAO {
 	}
 	
 	public String toString() {
-		System.out.println(getClass() + " toString in the Bank Account...");		
+		System.out.println(getClass() + " Doing toString in the Bank Account...");		
 		return getClass().toString();
  
 	}

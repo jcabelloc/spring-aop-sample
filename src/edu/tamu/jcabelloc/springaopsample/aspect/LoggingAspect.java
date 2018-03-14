@@ -2,35 +2,20 @@ package edu.tamu.jcabelloc.springaopsample.aspect;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
+@Order(3)
 public class LoggingAspect {
 	
-	@Pointcut("execution(* edu.tamu.jcabelloc.springaopsample.dao.*.*(..))")
-	private void pointcutForDAOPackage() {}
 	
-	@Pointcut("execution(* edu.tamu.jcabelloc.springaopsample.dao.*.get*(..))")
-	private void getters() {}
-	
-	@Pointcut("execution(* edu.tamu.jcabelloc.springaopsample.dao.*.set*(..))")
-	private void setters() {}
-	
-	@Pointcut("pointcutForDAOPackage() && !(getters() || setters())")
-	private void forDAOPackageNoGetterNoSetter() {}
-	
-	@Before("forDAOPackageNoGetterNoSetter()")
+	@Before("edu.tamu.jcabelloc.springaopsample.aspect.UtilAOPExpressions.forDAOPackageNoGetterNoSetter()")
 	public void beforeMethodsInDAOPackageAdvice() {
 		System.out.println("\n\n Executing @Before advice on method");
 	}
-	
-	@Before("forDAOPackageNoGetterNoSetter()")
-	public void performAuditLogging() {
-		System.out.println("\n\n Performing Audit Logging ");
-	}
-	
+
 	/*
 	@Before("pointcutForDAOPackage()")
 	public void beforeMethodsInDAOPackageAdvice() {
