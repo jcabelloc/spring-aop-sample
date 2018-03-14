@@ -27,9 +27,22 @@ public class LoggingAspect {
 		System.out.println("\n\n----- Executing @AfterReturning on Method: " + method);
 		
 		System.out.println("\n\n----- The result data is: " + resultData);
+		
+		// Modifying the data before delivering to the calling program
+		convertProductNamesToUpperCase(resultData);
+
+		System.out.println("\n\n----- The NEW result data is: " + resultData);
+
 	}
 	
-	
+	private void convertProductNamesToUpperCase(List<BankAccount> resultData) {
+		for (BankAccount anAccount: resultData) {
+			String productUpperName = anAccount.getProduct().toUpperCase();
+			anAccount.setProduct(productUpperName);
+		}
+	}
+
+
 	@Before("edu.tamu.jcabelloc.springaopsample.aspect.UtilAOPExpressions.forDAOPackageNoGetterNoSetter()")
 	public void beforeMethodsInDAOPackageAdvice(JoinPoint myJoinPoint) {
 		System.out.println("\n\n Executing @Before advice on method");
