@@ -1,8 +1,12 @@
 package edu.tamu.jcabelloc.springaopsample.dao;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
+
+import edu.tamu.jcabelloc.springaopsample.BankAccount;
 
 @Component
 public class BankAccountDAO {
@@ -19,6 +23,20 @@ public class BankAccountDAO {
 		return getClass().toString();
  
 	}
+	
+	public List<BankAccount> findBankAccounts(){
+		List<BankAccount> bankAccounts = new ArrayList<>();
+		
+		BankAccount bankAccount1 = new BankAccount("123","vip");
+		BankAccount bankAccount2 = new BankAccount("234","platinum");
+		BankAccount bankAccount3 = new BankAccount("345","gold");
+		
+		bankAccounts.add(bankAccount1);
+		bankAccounts.add(bankAccount2);
+		bankAccounts.add(bankAccount3);
+		
+		return bankAccounts;
+	} 
 
 	public String getAccountNumber() {
 		System.out.println(getClass() + "... inside getAccountNumber()");		
