@@ -1,10 +1,13 @@
 package edu.tamu.jcabelloc.springaopsample;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import edu.tamu.jcabelloc.springaopsample.dao.BankAccountDAO;
 
-public class AfterReturningSampleApp {
+public class AfterThrowingSampleApp {
 
 	public static void main(String[] args) {
 
@@ -12,7 +15,17 @@ public class AfterReturningSampleApp {
 		
 		BankAccountDAO myBankAccount = context.getBean("bankAccountDAO", BankAccountDAO.class);
 		
-		System.out.println(myBankAccount.findBankAccounts(false));
+		List<BankAccount> bankAccounts = new ArrayList<>();
+		
+		try {
+			boolean flagException = true;
+			bankAccounts = myBankAccount.findBankAccounts(flagException);
+		}
+		catch(Exception e){
+			System.out.println("\n Exception Caught in the Main Program: " + e);
+		}
+		
+		System.out.println(bankAccounts);
 		
 		context.close();
 

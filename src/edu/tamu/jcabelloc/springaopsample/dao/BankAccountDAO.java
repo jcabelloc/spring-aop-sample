@@ -24,7 +24,13 @@ public class BankAccountDAO {
  
 	}
 	
-	public List<BankAccount> findBankAccounts(){
+	public List<BankAccount> findBankAccounts(boolean flagException){
+		
+		// simulating the exception
+		if (flagException) {
+			throw new RuntimeException("Simulated Exception");
+		}
+		
 		List<BankAccount> bankAccounts = new ArrayList<>();
 		
 		BankAccount bankAccount1 = new BankAccount("123","vip");

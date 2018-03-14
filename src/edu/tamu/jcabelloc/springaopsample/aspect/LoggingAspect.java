@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -16,6 +17,20 @@ import edu.tamu.jcabelloc.springaopsample.BankAccount;
 @Component
 @Order(3)
 public class LoggingAspect {
+	
+	// New @AfterThrowing annotation 
+	@AfterThrowing(
+			pointcut="execution(* edu.tamu.jcabelloc.springaopsample.dao.BankAccountDAO.findBankAccounts(..))",
+			throwing="finderException")
+	public void afterThrowingFindBankAccounts(JoinPoint myJoinPoint, Throwable finderException) {
+		
+		String method = myJoinPoint.getSignature().toString();
+		
+		System.out.println("\n\n----- Executing @AfterThrowing on Method: " + method);
+		
+		System.out.println("\n\n----- The Advice Exception is: " + finderException);
+	}
+	
 	
 	// New @AfterReturning annotation 
 	@AfterReturning(
