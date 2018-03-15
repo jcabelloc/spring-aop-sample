@@ -12,9 +12,17 @@ public class ExchangeRateService {
 		try {
 			TimeUnit.SECONDS.sleep(3);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "3.26";
+	}
+
+	public String getRate(boolean flagException) {
+		
+		if (flagException) {
+			throw new RuntimeException("Service Unavailable!!!");
+		}
+		
+		return getRate();
 	}
 }

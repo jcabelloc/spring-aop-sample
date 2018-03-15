@@ -21,7 +21,6 @@ import edu.tamu.jcabelloc.springaopsample.BankAccount;
 @Order(3)
 public class LoggingAspect {
 	
-	
 	@Around("execution(* edu.tamu.jcabelloc.springaopsample.service.*.getRate(..))")
 	public Object aroundGetRate(ProceedingJoinPoint myProceedingJoinPoint) throws Throwable{
 		
@@ -30,7 +29,14 @@ public class LoggingAspect {
 		
 		long start = System.currentTimeMillis();
 		
-		Object result = myProceedingJoinPoint.proceed();
+		Object result = null;
+		
+		try {
+			result = myProceedingJoinPoint.proceed();
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			result = "rate: not Available";
+		}
 		
 		long finish = System.currentTimeMillis();
 		
