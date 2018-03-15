@@ -35,7 +35,8 @@ public class LoggingAspect {
 			result = myProceedingJoinPoint.proceed();
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
-			result = "rate: not Available";
+			//result = "rate: not Available";
+			throw e;
 		}
 		
 		long finish = System.currentTimeMillis();
