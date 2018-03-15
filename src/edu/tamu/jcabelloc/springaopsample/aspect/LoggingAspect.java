@@ -3,6 +3,7 @@ package edu.tamu.jcabelloc.springaopsample.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -17,6 +18,15 @@ import edu.tamu.jcabelloc.springaopsample.BankAccount;
 @Component
 @Order(3)
 public class LoggingAspect {
+	
+	// Adding @After annotation 
+	@After("execution(* edu.tamu.jcabelloc.springaopsample.dao.BankAccountDAO.findBankAccounts(..))")
+	public void afterFinallyFindBankAccounts(JoinPoint myJoinPoint) {
+		
+		String method = myJoinPoint.getSignature().toString();
+		System.out.println("\n\n----- Executing @After on Method: " + method);
+		
+	}
 	
 	// New @AfterThrowing annotation 
 	@AfterThrowing(
