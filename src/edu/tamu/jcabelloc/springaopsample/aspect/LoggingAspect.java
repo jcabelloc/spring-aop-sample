@@ -3,9 +3,11 @@ package edu.tamu.jcabelloc.springaopsample.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -19,13 +21,32 @@ import edu.tamu.jcabelloc.springaopsample.BankAccount;
 @Order(3)
 public class LoggingAspect {
 	
+	
+	@Around("execution(* edu.tamu.jcabelloc.springaopsample.service.*.getRate(..))")
+	public Object aroundGetRate(ProceedingJoinPoint myProceedingJoinPoint) throws Throwable{
+		
+		String method = myProceedingJoinPoint.getSignature().toString();
+		System.out.println("\n\n----- Executing @Around on Method: " + method);
+		
+		long start = System.currentTimeMillis();
+		
+		Object result = myProceedingJoinPoint.proceed();
+		
+		long finish = System.currentTimeMillis();
+		
+		long duration = finish - start;
+		
+		System.out.println("\n\n------------- Duration: " + duration/1000 + " seconds");
+		
+		return result;
+	}
+	
 	// Adding @After annotation 
 	@After("execution(* edu.tamu.jcabelloc.springaopsample.dao.BankAccountDAO.findBankAccounts(..))")
 	public void afterFinallyFindBankAccounts(JoinPoint myJoinPoint) {
 		
 		String method = myJoinPoint.getSignature().toString();
 		System.out.println("\n\n----- Executing @After on Method: " + method);
-		
 	}
 	
 	// New @AfterThrowing annotation 
